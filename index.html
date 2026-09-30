@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pong Phochanagan | ข้าวมันไก่</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700;800&family=Sarabun:wght@400;600&display=swap">
+<style>
+:root{--red:#C8102E;--yel:#FFC629;--cream:#FFF8E1;--ink:#2B1B17;--card:#fff;--muted:#6b5a55;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cream:#2a1a14;--ink:#fff3d6;--card:#3a2620;--muted:#d8c3ae}}
+:root[data-theme="dark"]{--cream:#2a1a14;--ink:#fff3d6;--card:#3a2620;--muted:#d8c3ae}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Sarabun,"Noto Sans Thai",sans-serif;font-size:17px;line-height:1.7}
+h1,h2,h3{font-family:Prompt,sans-serif;line-height:1.25;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;font-family:Prompt,sans-serif;flex-wrap:wrap}
+nav b{font-size:22px;color:var(--yel);font-weight:800}
+nav div{display:flex;gap:16px;font-size:15px}
+nav a{text-decoration:none}
+nav a:hover{color:var(--yel)}
+.hero{background:var(--red);color:#fff;padding:56px 20px 80px;display:grid;grid-template-columns:1.2fr 1fr;gap:32px;max-width:1080px;margin:auto;align-items:center}
+.wrap{background:var(--red)}
+.hero h1{font-size:clamp(40px,8vw,84px);font-weight:800;color:var(--yel);letter-spacing:-1px}
+.hero p{font-size:20px;max-width:30ch}
+.btn{display:inline-block;background:var(--yel);color:var(--ink);font-family:Prompt,sans-serif;font-weight:700;padding:12px 26px;border-radius:999px;text-decoration:none;margin:8px 8px 0 0}
+.btn.o{background:transparent;color:#fff;border:2px solid var(--yel)}
+.plate{width:100%;max-width:360px;justify-self:center}
+section{max-width:1080px;margin:auto;padding:64px 20px}
+h2{font-size:clamp(28px,4vw,40px);margin-bottom:8px}
+.sub{color:var(--muted);margin:0 0 28px}
+.promise{background:var(--yel);color:#2B1B17}
+.promise div{max-width:1080px;margin:auto;padding:36px 20px;font-family:Prompt,sans-serif;font-size:clamp(20px,3vw,30px);font-weight:700;display:flex;gap:28px;flex-wrap:wrap;justify-content:space-between}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.card{background:var(--card);border-radius:18px;padding:22px;border:2px solid var(--ink)}
+.card h3{font-size:20px}
+.price{font-family:Prompt,sans-serif;font-weight:800;font-size:32px;color:var(--red);margin:6px 0}
+.card.hot{background:var(--red);color:#fff;border-color:var(--red)}
+.card.hot .price{color:var(--yel)}
+.tag{display:inline-block;background:var(--yel);color:#2B1B17;font-family:Prompt,sans-serif;font-size:13px;font-weight:700;border-radius:999px;padding:2px 12px}
+.steps{list-style:none;margin:0;padding:0;border-left:4px solid var(--red)}
+.steps li{padding:0 0 22px 24px;position:relative}
+.steps li::before{content:"";position:absolute;left:-11px;top:8px;width:18px;height:18px;border-radius:50%;background:var(--yel);border:3px solid var(--red)}
+.steps b{font-family:Prompt,sans-serif}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.deliv{background:var(--ink);color:#fff8e1;border-radius:24px;padding:36px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.deliv .big{font-family:Prompt,sans-serif;font-size:clamp(56px,10vw,96px);font-weight:800;color:var(--yel);line-height:1}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:2px solid var(--ink);border-radius:999px;padding:6px 18px;font-family:Prompt,sans-serif;font-weight:500;background:var(--card)}
+form{display:flex;gap:10px;flex-wrap:wrap}
+input{flex:1;min-width:200px;padding:12px 16px;border-radius:999px;border:2px solid var(--ink);font:inherit;background:var(--card);color:var(--ink)}
+button{border:0;cursor:pointer;font:inherit}
+footer{background:var(--red);color:#fff;text-align:center;padding:28px 20px;font-family:Prompt,sans-serif}
+footer b{color:var(--yel)}
+#msg{margin-top:10px;font-weight:600}
+@media(max-width:760px){.hero,.two,.deliv{grid-template-columns:1fr}.hero{padding-bottom:48px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav>
+  <b>Pong</b>
+  <div><a href="#menu">เมนู</a><a href="#story">เรื่องของเรา</a><a href="#order">สั่งอาหาร</a><a href="#review">รีวิว</a></div>
+</nav>
+
+<div class="wrap">
+<header class="hero">
+  <div>
+    <h1>Pong</h1>
+    <p>ไก่นุ่มเนื้อแน่น ข้าวมันหอม น้ำจิ้มสูตรเฉพาะ</p>
+    <a class="btn" href="#order">สั่งเลย เริ่มต้น 50 บาท</a>
+    <a class="btn o" href="#menu">ดูเมนู</a>
+  </div>
+  <svg class="plate" viewBox="0 0 320 320" role="img" aria-label="โลโก้รูปไก่">
+    <circle cx="160" cy="160" r="150" fill="#FFC629"/>
+    <circle cx="160" cy="160" r="128" fill="none" stroke="#C8102E" stroke-width="6" stroke-dasharray="4 10"/>
+    <path d="M118 96c-6-24 8-34 20-26 4-16 24-16 28 0 14-8 26 8 16 24z" fill="#C8102E"/>
+    <path d="M120 140c0-30 22-48 52-46 22 2 36 16 38 34 6 4 20 8 30 6-4 10-14 18-30 18 0 40-30 84-80 84-34 0-52-22-52-44 0-24 18-38 42-52z" fill="#fff" stroke="#2B1B17" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M198 134c12 2 30 2 44 8-12 4-30 6-44 6z" fill="#FFC629" stroke="#2B1B17" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M196 156c6 10 4 22-4 26-10-4-12-16-4-26z" fill="#C8102E"/>
+    <circle cx="186" cy="122" r="6" fill="#2B1B17"/>
+    <path d="M140 232v30M172 232v30M128 264h24M160 264h24" stroke="#2B1B17" stroke-width="6" stroke-linecap="round"/>
+  </svg>
+</header>
+</div>
+
+<div class="promise"><div><span>ไก่สดใหม่ทุกวัน</span><span>ต้มใหม่ทุกรอบ</span><span>รสชาติเหมือนเดิมทุกครั้ง</span></div></div>
+
+<section id="menu">
+  <h2>เมนูของร้าน</h2>
+  <p class="sub">ราคาเริ่มต้น 50 บาท มีชุดคู่และเมนูพิเศษ (เมนูและราคาเป็นตัวอย่าง แก้ไขให้ตรงกับร้านได้)</p>
+  <div class="grid">
+    <div class="card"><h3>ข้าวมันไก่ต้ม</h3><div class="price">50 ฿</div><p>ไก่ต้มนุ่มเนื้อแน่น เสิร์ฟกับข้าวมันหอมและน้ำจิ้มสูตรเฉพาะ</p></div>
+    <div class="card"><h3>ข้าวมันไก่ทอด</h3><div class="price">55 ฿</div><p>ไก่ทอดกรอบนอก เนื้อในนุ่ม ราดน้ำจิ้มสูตรเฉพาะ</p></div>
+    <div class="card"><h3>ข้าวมันไก่รวม</h3><div class="price">65 ฿</div><p>ไก่ต้มและไก่ทอดในจานเดียว สำหรับคนหิวมาก</p></div>
+    <div class="card hot"><span class="tag">ชุดคู่</span><h3>ชุดคู่ 2 ที่</h3><div class="price">99 ฿</div><p>มากับเพื่อนหรือแฟน ได้ข้าวมันไก่ 2 จาน พร้อมซุป</p></div>
+    <div class="card hot"><span class="tag">เมนูพิเศษ</span><h3>เมนูพิเศษของ Pong</h3><div class="price">ถามที่ร้าน</div><p>เมนูประจำสัปดาห์ ติดตามได้ทาง Facebook และ TikTok</p></div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="two">
+    <div>
+      <h2>เรื่องของเรา</h2>
+      <p class="sub">จากคนอยากขายของ สู่ร้านที่มีลูกค้าประจำ</p>
+      <ol class="steps">
+        <li><b>จุดเริ่มต้น</b><br>อยากขายของของตัวเอง</li>
+        <li><b>จุดเปลี่ยน</b><br>ฟังเสียงจากลูกค้า แล้วปรับสูตรและบริการ</li>
+        <li><b>อุปสรรค</b><br>มีคู่แข่งในย่านเดียวกัน</li>
+        <li><b>ความสำเร็จ</b><br>มีลูกค้าประจำที่กลับมาซื้อเรื่อยๆ</li>
+        <li><b>ปัจจุบัน</b><br>ยังอยู่ดี และยังพูดคุยกับลูกค้าเหมือนเดิม</li>
+      </ol>
+    </div>
+    <div>
+      <h2>ร้านนี้เหมาะกับใคร</h2>
+      <p class="sub">พนักงานออฟฟิศและนักเรียนในละแวกร้าน อายุ 12-50 ปี</p>
+      <div class="chips"><span class="chip">พักเที่ยงสั้นๆ</span><span class="chip">งบไม่บาน</span><span class="chip">หิวเร็ว</span><span class="chip">ซื้อกลับที่ทำงาน</span><span class="chip">สั่งเดลิเวอรี</span></div>
+      <p style="margin-top:24px">เราคุยกับลูกค้าเหมือนคุยกับลูกค้าประจำ ถามได้ ขอเพิ่มได้ บอกได้ถ้าอยากให้ปรับรสชาติ</p>
+    </div>
+  </div>
+</section>
+
+<section id="order">
+  <div class="deliv">
+    <div class="big">5<br><small style="font-size:24px">นาที</small></div>
+    <div>
+      <h2>สั่งที่เคาน์เตอร์ ได้อาหารภายใน 5 นาที</h2>
+      <p>ห่อกลับและส่งเดลิเวอรีได้ ขายหน้าร้านและผ่านแอปเดลิเวอรี</p>
+      <form id="f"><input id="n" placeholder="ชื่อ หรือ เบอร์โทร" aria-label="ชื่อหรือเบอร์โทร"><button class="btn" type="submit">รับสิทธิ์สะสมแต้ม</button></form>
+      <div id="msg" role="status"></div>
+    </div>
+  </div>
+</section>
+
+<section id="review">
+  <h2>ลูกค้าเป็นคนบอกต่อ</h2>
+  <p class="sub">อ่านรีวิวหรือกดติดตามได้ที่ช่องทางเหล่านี้ เรายินดีรับฟีดแบ็กและตอบรีวิวทุกอัน</p>
+  <div class="grid">
+    <div class="card"><h3>Facebook</h3><p>รีวิวจากลูกค้าและโปรโมชันประจำสัปดาห์</p></div>
+    <div class="card"><h3>Google Maps</h3><p>ดูเส้นทาง เวลาเปิดร้าน และรีวิว</p></div>
+    <div class="card"><h3>TikTok</h3><p>คลิปไก่ต้มใหม่ทุกรอบ ภาพอาหารใกล้ๆ และเจ้าของร้าน</p></div>
+    <div class="card hot"><h3>ลูกค้าประจำ</h3><p>สะสมแต้มแลกส่วนลด และมีข้อเสนอพิเศษสำหรับคนที่กลับมา</p></div>
+  </div>
+</section>
+
+<footer><b>Pong Phochanagan</b><br>อุ่นเหมือนอยู่บ้าน หิวเมื่อไรก็แวะมา</footer>
+
+<script>
+document.getElementById('f').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('n').value.trim();
+  document.getElementById('msg').textContent=v?('ขอบคุณ '+v+' บอกชื่อนี้ที่เคาน์เตอร์เพื่อสะสมแต้มได้เลย'):'กรอกชื่อหรือเบอร์โทรก่อนนะ';
+});
+</script>
+</body>
+</html>
